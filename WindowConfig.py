@@ -2,7 +2,7 @@ class WindowConfig:
     def __init__(self):
         self.width = 800
         self.height = 600
-        self.title = "3d camera"
+        self.title = "3d-camera"
 
     def get_width(self):
         return self.width

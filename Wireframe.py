@@ -12,9 +12,10 @@ class Line:
 
 
 class Wireframe:
-    def __init__(self):
+    def __init__(self, color=(255, 255, 255)):
         self.points = set()
         self.lines = []
+        self.color = color
 
     @staticmethod
     def from_file(file):
@@ -54,6 +55,12 @@ class Wireframe:
     def add_lines(self, lines):
         for line in lines:
             self.lines.append(line)
+
+    def get_color(self):
+        return self.color
+
+    def set_color(self, color):
+        self.color = color
 
     def __str__(self):
         to_string = ""

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pygame as pg
 from WindowConfig import WindowConfig
 from Wireframe import Wireframe
@@ -18,8 +20,10 @@ def main():
     running = True
     fps = 60
     wireframe = Wireframe.from_file("initial_obj.txt")
+    wireframe2 = Wireframe.from_file("next_obj.txt")
+    wireframe2.set_color((255, 0, 0))
     camera = Camera()
-    renderer = Renderer([wireframe], camera)
+    renderer = Renderer([wireframe, wireframe2], camera, WindowConfig())
     amount = 10
 
     while running:
@@ -45,17 +49,25 @@ def main():
                 if event.key == pg.K_s:
                     camera.rotate_roll(-amount)
                 if event.key == pg.K_q:
-                    camera.rotate_pitch(amount)
-                if event.key == pg.K_e:
                     camera.rotate_pitch(-amount)
+                if event.key == pg.K_e:
+                    camera.rotate_pitch(amount)
                 if event.key == pg.K_a:
                     camera.rotate_yaw(amount)
                 if event.key == pg.K_d:
                     camera.rotate_yaw(-amount)
                 if event.key == pg.K_EQUALS:
-                    pass
+                    camera.zoom_in()
                 if event.key == pg.K_MINUS:
-                    pass
+                    camera.zoom_out()
+                if event.key == pg.K_0:
+                    camera.reset_zoom()
+                if event.key == pg.K_o:
+                    filename = f"screenshot_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.png"
+                    pg.image.save(pg.display.get_surface(), filename)
+
+                if event.key == pg.K_ESCAPE:
+                    running = False
 
 
         pg.display.get_surface().fill((0, 0, 0))

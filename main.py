@@ -22,9 +22,11 @@ def main():
     wireframe = Wireframe.from_file("initial_obj.txt")
     wireframe2 = Wireframe.from_file("next_obj.txt")
     wireframe2.set_color((255, 0, 0))
+    wireframe3 = Wireframe.from_file("obj2.txt")
+    wireframe3.set_color((0, 255, 0))
     camera = Camera()
-    renderer = Renderer([wireframe, wireframe2], camera, WindowConfig())
-    amount = 10
+    renderer = Renderer([wireframe, wireframe2, wireframe3], camera, WindowConfig())
+    amount = 45
 
     while running:
         for event in pg.event.get():

@@ -84,10 +84,10 @@ class Camera:
         self.pinhole_z = self.pinhole_z_default
 
     def get_relative_multipliers(self, axis=0):
-        roll = np.array([
-            [1, 0, 0],
-            [0, np.cos(self.roll), np.sin(self.roll)],
-            [0, -np.sin(self.roll), np.cos(self.roll)]
+        yaw = np.array([
+            [np.cos(self.yaw), np.sin(self.yaw), 0],
+            [-np.sin(self.yaw), np.cos(self.yaw), 0],
+            [0, 0, 1]
         ])
 
         pitch = np.array([
@@ -96,14 +96,15 @@ class Camera:
             [np.sin(self.pitch), 0, np.cos(self.pitch)]
         ])
 
-        yaw = np.array([
-            [np.cos(self.yaw), np.sin(self.yaw), 0],
-            [-np.sin(self.yaw), np.cos(self.yaw), 0],
-            [0, 0, 1]
+        roll = np.array([
+            [1, 0, 0],
+            [0, np.cos(self.roll), np.sin(self.roll)],
+            [0, -np.sin(self.roll), np.cos(self.roll)]
         ])
 
-        multipliers = np.dot(np.dot(roll, pitch), yaw)
+        multipliers = np.dot(np.dot(pitch, yaw), roll)
         multipliers[:, axis][np.abs(multipliers[:, axis]) < 1e-5] = 0
+        print(multipliers[:, axis])
 
         return multipliers[:, axis]
 

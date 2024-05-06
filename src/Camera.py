@@ -102,9 +102,10 @@ class Camera:
             [0, -np.sin(self.roll), np.cos(self.roll)]
         ])
 
+        # multipliers = np.dot(np.dot(roll, pitch), yaw)
         multipliers = np.dot(np.dot(pitch, yaw), roll)
         multipliers[:, axis][np.abs(multipliers[:, axis]) < 1e-5] = 0
-        print(multipliers[:, axis])
+        print(f"roll: {self.roll} pitch: {self.pitch} yaw: {self.yaw}")
 
         return multipliers[:, axis]
 

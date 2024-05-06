@@ -39,6 +39,7 @@ class Renderer:
             [0, 0, 1]
         ])
 
+# roll yaw pitch
         return roll @ pitch @ yaw @ (point - self.camera.return_cords())
 
     def render(self):
